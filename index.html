@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- DOCTYPE: memberi tahu browser bahwa ini dokumen HTML5 modern -->
+<html lang="id">
+<!-- <html>: pembungkus seluruh halaman. lang="id" = bahasa Indonesia (membantu screen reader & terjemahan) -->
+<head>
+  <!-- <head>: bagian "belakang layar", tidak tampil di halaman -->
+  <meta charset="UTF-8">
+  <!-- charset: supaya huruf, simbol, dan emoji tampil benar -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- viewport: WAJIB agar tampilan pas di layar HP (lebar mengikuti layar, tidak ter-zoom-out) -->
+  <title>Catatan Tenang</title>
+  <!-- title: tulisan di tab browser -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+  <!-- tiga baris di atas: memuat font Nunito (bulat & ramah) dari Google Fonts -->
+  <link rel="stylesheet" href="style.css">
+  <!-- link rel="stylesheet": menyambungkan file CSS agar halaman jadi cantik -->
+</head>
+<body>
+  <!-- <body>: semua yang tampil di layar ada di sini -->
+  <main class="app">
+    <!-- <main>: isi utama halaman. class="app" = nama "label" supaya bisa dipercantik lewat CSS -->
+
+    <header>
+      <!-- <header>: bagian kepala/judul -->
+      <h1>Catatan Tenang</h1>
+      <!-- <h1>: judul utama halaman -->
+      <p class="sapa" id="sapa"></p>
+      <!-- id="sapa": nama unik supaya JavaScript bisa mengisi kalimat penyemangat di sini -->
+    </header>
+
+    <section class="saldo" aria-label="Ringkasan keuangan">
+      <!-- <section>: kelompok isi. aria-label = nama bagian untuk pembaca layar -->
+      <p class="label">Saldo kamu</p>
+      <p class="angka" id="saldo">Rp0</p>
+      <div class="meter" aria-hidden="true"><div class="meter-isi" id="meter"></div></div>
+      <!-- meter: batang pengukur. Bagian dalam (meter-isi) lebarnya diatur JS sesuai persen pengeluaran -->
+      <div class="dua">
+        <div><span>Pemasukan</span><strong id="masuk">Rp0</strong></div>
+        <div><span>Pengeluaran</span><strong id="keluar">Rp0</strong></div>
+      </div>
+    </section>
+
+    <form id="form" autocomplete="off">
+      <!-- <form>: wadah isian. Saat tombol Simpan ditekan, JS yang menangani (bukan reload halaman) -->
+      <div class="pilih" role="radiogroup" aria-label="Jenis catatan">
+        <label><input type="radio" name="jenis" value="keluar" checked><span>Pengeluaran</span></label>
+        <label><input type="radio" name="jenis" value="masuk"><span>Pemasukan</span></label>
+        <!-- radio: pilih salah satu. name sama = hanya satu yang bisa aktif. checked = pilihan awal -->
+      </div>
+
+      <label for="ket">Untuk apa?</label>
+      <input id="ket" type="text" maxlength="40" placeholder="contoh: bakso depan sekolah" required>
+      <!-- required: tidak boleh kosong. maxlength: batas 40 huruf. for/id menyambungkan label ke kolom -->
+
+      <label for="jumlah">Berapa? (Rp)</label>
+      <input id="jumlah" type="number" min="1" inputmode="numeric" placeholder="contoh: 10000" required>
+      <!-- type="number" + inputmode: di HP muncul keyboard angka. min="1": minimal 1 rupiah -->
+
+      <label for="kategori">Kategori</label>
+      <select id="kategori"></select>
+      <!-- select: menu pilihan. Isinya diisi oleh JS karena berubah sesuai jenis -->
+
+      <button type="submit">Simpan catatan</button>
+      <!-- type="submit": tombol pengirim form -->
+    </form>
+
+    <section>
+      <h2>Riwayat</h2>
+      <p class="kosong" id="kosong">Belum ada catatan. Mulai pelan-pelan ya 🌱</p>
+      <ul class="daftar" id="daftar"></ul>
+      <!-- <ul>: daftar. Setiap catatan akan dibuat JS sebagai <li> di dalamnya -->
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <!-- script: memuat file JavaScript. Ditaruh PALING BAWAH supaya elemen di atas sudah ada saat JS jalan -->
+</body>
+</html>
